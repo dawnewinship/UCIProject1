@@ -35,28 +35,29 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Ancible  | Gateway  | 10.0.0.106 | Amazon Linux     |
+| ELK      | Server   | 10.0.0.191 | Linux/Ubuntu     |
+| DVWA1    | Server   | 10.0.0.159 | Amazon Linux     |
 | TODO     |          |            |                  |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the gateway machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the those connected through the route table can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+10.0.2.0/24
+10.0.0.0/16
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by Docker for Containers.
+Docker for Containers IP 10.0.0.191
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box |      YES            | 10.0.0.1 10.0.0.2    |
-|   ELK    |      NO             |                      |
-|  DVWA 1  |      NO             |                      |
+|   ELK    |      NO             | 10.0.0.191           |
+| Ancible  |      NO             | 10.0.0.106           |
+|  DVWA 1  |      NO             | 10.0.0.159           |
 
 ### Elk Configuration
 
@@ -117,7 +118,7 @@ The playbook implements the following tasks:
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+Ancible   IP 10.0.0.106         
 
 We have installed the following Beats on these machines:
 Filebeat
@@ -136,15 +137,27 @@ jump box):
 
 SSH into the control node and follow the steps below:
 
-- Copy the ansible file to #Clone Repository + IaC Files.
+- Copy the ansible file ansible.cfg
 
-- Update the Project 1 file to include etc/ansible playbook files
-- 
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Run the playbook 
+ ansible-playbook install_elk.yml elk
+ ansible-playbook install_filebeat.yml webservers
+ ansible-playbook install_metricbeat.yml webservers
+ 
+ and navigate to run curl http://10.0.0.8:5601 
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+All playbooks are in the files for Project1 and can be copied to etc/ansible
+
+Update the ansible yml file to make Ansible run the playbook on a specific machine
+The ELK server should be installed on the Gateway and the filebeat on webservers
+
+Navigate to http://10.0.0.8:5601 in order to check that the ELK server is running?
+
+Sudo apt update
+Sudo apt-get install docker-ce docker-ce-cli containerd.io
+Sudo apt install docker.io
+Sudo docker pull sebp/elk
+
+sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
+
