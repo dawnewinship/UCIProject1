@@ -1,9 +1,7 @@
 # UCIProject1
 ## Automated ELK Stack Deployment
 
-The files in this repository were used to configure the network depicted below.
-
-![TODO: Update the path with the name of your diagram](Images/diagram_filename.png)
+The files in this repository were used to configure the network depicted in the network file image.
 
 These files have been tested and used to generate a live ELK deployment on AWS. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the YAML files may be used to install only certain pieces of it, such as Filebeat.
 
@@ -31,14 +29,13 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
   Filebeat watch for log data, while Metricbeat records teh metrics and statistics from teh sytem and services running on the server. 
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
 | Ancible  | Gateway  | 10.0.0.106 | Amazon Linux     |
 | ELK      | Server   | 10.0.0.191 | Linux/Ubuntu     |
 | DVWA1    | Server   | 10.0.0.159 | Amazon Linux     |
-| TODO     |          |            |                  |
+
 
 ### Access Policies
 
@@ -114,7 +111,6 @@ The playbook implements the following tasks:
           - 9200:9200
           - 5044:5044
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
